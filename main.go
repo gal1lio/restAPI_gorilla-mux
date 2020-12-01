@@ -55,7 +55,15 @@ func getBook(w http.ResponseWriter, r *http.Request) {
 }
 
 func addBook(w http.ResponseWriter, r *http.Request) {
-	log.Println("Post a book endpoint is called.")
+	var book Book
+
+	json.NewDecoder(r.Body).Decode(&book)
+
+	books = append(books, book)
+
+	// Returns all book
+	json.NewEncoder(w).Encode(books)
+
 }
 
 func updateBook(w http.ResponseWriter, r *http.Request) {
